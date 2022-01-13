@@ -1,5 +1,5 @@
 ---
-title: "Untitled"
+title: "Dylan Scoble"
 author: "STAT 108"
 date: "1/11/2022"
 output:
