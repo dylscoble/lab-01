@@ -47,7 +47,7 @@ View(trails)
 1. Now that we've had a quick view of the dataset, let's get more details about its structure. Sometimes viewing a summary of the data structure is more useful than viewing the raw data, especially if the dataset has a large number of observations and/or rows. Run the code below to use the `glimpse` function to see a summary of the `trails` dataset.
 
     How many observations are in the `trails` dataset? How many variables?
-
+There are 739 total observations in the 'trails' dataset. In each observation, there are 12 variables.
   
 ```{r eval = F}
 glimpse(trails)
@@ -63,7 +63,7 @@ glimpse(trails)
 ```{r eval=FALSE}
 ggplot(data = trails, aes(x = status)) + 
   __________ + 
-  labs(x = "_________", 
+  labs(x = "________", 
        y = "_________", 
        title = "__________")
 ```
