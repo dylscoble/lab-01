@@ -190,6 +190,10 @@ Over the next few questions, will use statistical inference to assess whether th
 
 The null and alternative hypotheses are written in statistical notation below. State the hypotheses in words in the context of this analysis.  
 
+Null Hypothesis: The average length of the trails with bike lanes (Class 2) is the same os the average length of trails that share bikes with pedestrians (Class 1).
+
+Alternative Hypothesis: The average length of the trails with bike lanes (Class 2) is different than the  average length of trails that share bikes with pedestrians (Class 1).
+
 $$H_0: \mu_1 - \mu_2 = 0 \\
 H_a: \mu_1 - \mu_2 \neq 0$$
 
@@ -197,8 +201,8 @@ H_a: \mu_1 - \mu_2 \neq 0$$
 
 ```{r eval = FALSE}
 ?t.test # to see the help page from the function
-t.test(response ~ group_var, data = ________, 
-       alternative = "___________", 
+t.test(length ~ class, data = refined_class, 
+       alternative = "two.sided", 
        conf.level = 0.99) #less, greater, or two.sided
 ```
 

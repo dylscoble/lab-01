@@ -381,6 +381,23 @@ you push the changes, the Git pane in RStudio should be empty.''}
     observations of \texttt{class}? In other words, what does a missing
     value of \texttt{class} indicate?
   \end{itemize}
+
+  `class' takes the value of an integer between 1 and 3. There are two
+  missing observations of class, which may indicate that these trails
+  have not been assigned a class yet.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{hikable\_trails }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{count}\NormalTok{(class)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{8}
+\tightlist
 \item
   Complete the code below to impute (i.e.~fill in) the missing values of
   \texttt{class} with the appropriate value. After that, eliminate all
@@ -391,14 +408,16 @@ you push the changes, the Git pane in RStudio should be empty.''}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{\_\_\_\_\_\_\_\_\_\_ }\OtherTok{\textless{}{-}}\NormalTok{ \_\_\_\_\_\_\_\_\_\_ }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(class }\SpecialCharTok{!=}\DecValTok{3}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{class =} \FunctionTok{if\_else}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(class),\_\_\_\_\_\_,class)) }
+\NormalTok{refined\_class }\OtherTok{\textless{}{-}}\NormalTok{ hikable\_trails }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(class }\SpecialCharTok{!=}\DecValTok{3}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{class =} \FunctionTok{if\_else}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(class),}\DecValTok{1}\NormalTok{,class)) }
+\FunctionTok{glimpse}\NormalTok{(refined\_class)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \setcounter{enumi}{9}
+\tightlist
 \item
   Now that we've completed the univariate EDA (i.e.~examining one
   variable at a time), let's examine the relationship between the length
@@ -406,6 +425,22 @@ you push the changes, the Git pane in RStudio should be empty.''}
   relationship between \texttt{length} and \texttt{class} and calculate
   the appropriate summary statistics. Include informative axis labels
   and title on your graph.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ hikable\_trails) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ class, }\AttributeTok{y =}\NormalTok{ length)) }\SpecialCharTok{+} 
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Class"}\NormalTok{, }
+       \AttributeTok{y =} \StringTok{"Length"}\NormalTok{, }
+       \AttributeTok{title =} \StringTok{"San Francisco Current Trails: Length vs Class"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{10}
+\tightlist
 \item
   Describe the relationship between \texttt{length} and \texttt{class}.
   In other words, describe how the distribution of \texttt{length}
@@ -414,6 +449,10 @@ you push the changes, the Git pane in RStudio should be empty.''}
   Include information from the graph and summary statistics from the
   previous exercise in your response.
 \end{enumerate}
+
+All trails longer than 2.5 miles are labelled as class 1 trails. All
+class two and three trails are smaller than 2.5 miles. There are only
+two bike routes, and both of them are less than one mile long.
 
 \emph{This is a good place to knit, commit, and push changes to your
 remote lab-01 repo on GitHub. Be sure to write informative commit
@@ -464,6 +503,14 @@ bike line (class = 2).
 The null and alternative hypotheses are written in statistical notation
 below. State the hypotheses in words in the context of this analysis.
 
+Null Hypothesis: The average length of the trails with bike lanes (Class
+2) is the same os the average length of trails that share bikes with
+pedestrians (Class 1).
+
+Alternative Hypothesis: The average length of the trails with bike lanes
+(Class 2) is different than the average length of trails that share
+bikes with pedestrians (Class 1).
+
 \[H_0: \mu_1 - \mu_2 = 0 \\
 H_a: \mu_1 - \mu_2 \neq 0\]
 
@@ -481,8 +528,8 @@ H_a: \mu_1 - \mu_2 \neq 0\]
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{?t.test }\CommentTok{\# to see the help page from the function}
-\FunctionTok{t.test}\NormalTok{(response }\SpecialCharTok{\textasciitilde{}}\NormalTok{ group\_var, }\AttributeTok{data =}\NormalTok{ \_\_\_\_\_\_\_\_, }
-       \AttributeTok{alternative =} \StringTok{"\_\_\_\_\_\_\_\_\_\_\_"}\NormalTok{, }
+\FunctionTok{t.test}\NormalTok{(length }\SpecialCharTok{\textasciitilde{}}\NormalTok{ class, }\AttributeTok{data =}\NormalTok{ refined\_class, }
+       \AttributeTok{alternative =} \StringTok{"two.sided"}\NormalTok{, }
        \AttributeTok{conf.level =} \FloatTok{0.99}\NormalTok{) }\CommentTok{\#less, greater, or two.sided}
 \end{Highlighting}
 \end{Shaded}
