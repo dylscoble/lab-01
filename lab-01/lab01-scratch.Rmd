@@ -95,9 +95,12 @@ glimpse(current_trails)
 
 ```{r eval = F}
 ggplot(data = current_trails) +
-  geom_histogram(mapping = aes(x = _____), binwidth = 0.5)
+  geom_histogram(mapping = aes(x = length), binwidth = 0.5) + 
+  labs(x = "Length", 
+       y = "# of Observations", 
+       title = "San Francisco Current Trails")
 
-ggplot(data = current_trails, mapping = aes(x = as.factor(class), y = _____)) +
+ggplot(data = current_trails, mapping = aes(x = as.factor(class), y = length)) +
   geom_boxplot()
 ```
 
@@ -107,14 +110,14 @@ See [Section 7.3.1 "Visualizing Distributions"](https://r4ds.had.co.nz/explorato
 
 ```{r eval = FALSE}
 current_trails %>%
-  summarise(min = __________, 
-            q1 = __________, 
-            median = __________, 
-            q3 = __________, 
-            max = __________, 
-            iqr = __________, 
-            mean = __________, 
-            std_dev = __________
+  summarise(min = min(length), 
+            q1 = mean(length)-(IQR(length)/2), 
+            median = median(length), 
+            q3 = mean(length)+(IQR(length)/2), 
+            max = max(length), 
+            iqr = IQR(length), 
+            mean = mean(length), 
+            std_dev = sd(length)
             )
 ```
 
@@ -123,6 +126,13 @@ current_trails %>%
 7. We want to limit the analysis to trails that are more likely intended for day hikes, rather than multi-day hikes and camping. Therefore, let's remove the extreme outliers from the data for this analysis and only consider those trails that are 5 miles or shorter. 
 
     Filter the dataset to remove the extreme outliers. **Be sure to save the updated dataset, so you can use it for the remainder of the lab.** 
+```{r eval = FALSE}
+hikable_trails <- current_trails %>%
+  filter(length <= 5, !is.na(current_trails))
+glimpse(hikable_trails)
+
+```
+
     
 *This is a good place to knit, commit, and push changes to your remote lab-01 repo on GitHub. Be sure to write informative commit message (e.g. "Completed exercises 4 - 7"), and push every file to GitHub by clicking the checkbox next to each file in the Git pane. After you push the changes, the Git pane in RStudio should be empty."*
 

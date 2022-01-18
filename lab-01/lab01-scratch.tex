@@ -287,9 +287,12 @@ you push the changes, the Git pane in RStudio should be empty.''}
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ current\_trails) }\SpecialCharTok{+}
-  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ \_\_\_\_\_), }\AttributeTok{binwidth =} \FloatTok{0.5}\NormalTok{)}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ length), }\AttributeTok{binwidth =} \FloatTok{0.5}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Length"}\NormalTok{, }
+       \AttributeTok{y =} \StringTok{"\# of Observations"}\NormalTok{, }
+       \AttributeTok{title =} \StringTok{"San Francisco Current Trails"}\NormalTok{)}
 
-\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ current\_trails, }\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \FunctionTok{as.factor}\NormalTok{(class), }\AttributeTok{y =}\NormalTok{ \_\_\_\_\_)) }\SpecialCharTok{+}
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ current\_trails, }\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \FunctionTok{as.factor}\NormalTok{(class), }\AttributeTok{y =}\NormalTok{ length)) }\SpecialCharTok{+}
   \FunctionTok{geom\_boxplot}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
@@ -316,14 +319,14 @@ reference page} for details and example code.
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{current\_trails }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{min =}\NormalTok{ \_\_\_\_\_\_\_\_\_\_, }
-            \AttributeTok{q1 =}\NormalTok{ \_\_\_\_\_\_\_\_\_\_, }
-            \AttributeTok{median =}\NormalTok{ \_\_\_\_\_\_\_\_\_\_, }
-            \AttributeTok{q3 =}\NormalTok{ \_\_\_\_\_\_\_\_\_\_, }
-            \AttributeTok{max =}\NormalTok{ \_\_\_\_\_\_\_\_\_\_, }
-            \AttributeTok{iqr =}\NormalTok{ \_\_\_\_\_\_\_\_\_\_, }
-            \AttributeTok{mean =}\NormalTok{ \_\_\_\_\_\_\_\_\_\_, }
-            \AttributeTok{std\_dev =}\NormalTok{ \_\_\_\_\_\_\_\_\_\_}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{min =} \FunctionTok{min}\NormalTok{(length), }
+            \AttributeTok{q1 =} \FunctionTok{mean}\NormalTok{(length)}\SpecialCharTok{{-}}\NormalTok{(}\FunctionTok{IQR}\NormalTok{(length)}\SpecialCharTok{/}\DecValTok{2}\NormalTok{), }
+            \AttributeTok{median =} \FunctionTok{median}\NormalTok{(length), }
+            \AttributeTok{q3 =} \FunctionTok{mean}\NormalTok{(length)}\SpecialCharTok{+}\NormalTok{(}\FunctionTok{IQR}\NormalTok{(length)}\SpecialCharTok{/}\DecValTok{2}\NormalTok{), }
+            \AttributeTok{max =} \FunctionTok{max}\NormalTok{(length), }
+            \AttributeTok{iqr =} \FunctionTok{IQR}\NormalTok{(length), }
+            \AttributeTok{mean =} \FunctionTok{mean}\NormalTok{(length), }
+            \AttributeTok{std\_dev =} \FunctionTok{sd}\NormalTok{(length)}
 \NormalTok{            )}
 \end{Highlighting}
 \end{Shaded}
@@ -346,6 +349,14 @@ reference page} for details and example code.
   save the updated dataset, so you can use it for the remainder of the
   lab.}
 \end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{hikable\_trails }\OtherTok{\textless{}{-}}\NormalTok{ current\_trails }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(length }\SpecialCharTok{\textless{}=} \DecValTok{5}\NormalTok{, }\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(current\_trails))}
+\FunctionTok{glimpse}\NormalTok{(hikable\_trails)}
+\end{Highlighting}
+\end{Shaded}
 
 \emph{This is a good place to knit, commit, and push changes to your
 remote lab-01 repo on GitHub. Be sure to write informative commit
