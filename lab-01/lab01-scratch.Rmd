@@ -3,8 +3,13 @@ title: "Dylan Scoble"
 author: "STAT 108"
 date: "1/11/2022"
 output:
-  html_document: default
   pdf_document: default
+  html_document: default
+---
+
+
+Access the Github repository for this project
+at https://github.com/dylscoble/lab-01
 ---
 
 ```{r setup, include=FALSE}
